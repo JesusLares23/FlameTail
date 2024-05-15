@@ -1,6 +1,12 @@
 
 package vista;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  * 
  * 
@@ -9,13 +15,42 @@ package vista;
  */
 public class frmLogin extends javax.swing.JFrame {
 
+    public static Usuarios usuario = new Usuarios();
+    public static int scoreMax;
+    private Validadores validador = new Validadores();
+    private Registro registro = new Registro("Registros.dat");
+    Graphics g;
+    
     /**
      * Creates new form frmLogin
      */
     public frmLogin() {
         initComponents();
+        setIconImage(getIconImage());
+        this.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(getClass().getResource(""));
+        btnIniciar.setIcon(new ImageIcon(setearImagen(icon)));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource(""));
+        btnRegistrarse.setIcon(new ImageIcon(setearImagen(icon2)));
+        
+        ImageIcon fondo = new ImageIcon(getClass().getResource(""));
+        Image imgFondo = fondo.getImage();
+        Image newFondo = imgFondo.getScaledInstance(910, 680, java.awt.Image.SCALE_SMOOTH);
+        lblFondo.setIcon(new ImageIcon(newFondo));
     }
-
+    
+    public Image setearImagen(ImageIcon icon){
+        
+        Image image = icon.getImage();
+        Image newImg = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+        return newImg;
+        
+    }
+    
+    public Image getIconImage(){
+        Image setValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(""));
+        return setValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,8 +93,18 @@ public class frmLogin extends javax.swing.JFrame {
 
         btnIniciar.setText("Iniciar");
         btnIniciar.setPreferredSize(new java.awt.Dimension(87, 23));
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         btnRegistrarse.setText("Registrarse");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -115,6 +160,45 @@ public class frmLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        if (validador.validaApodo(txtUsuario.getText()) && validador.validaContrasena(txtContra.getText())) {
+            try {
+                Usuarios user = registro.obten(new Usuarios(txtUsuario.getText(), "", "", ""));
+                if (user != null) {
+                    if (user.getContrasena().equals(txtContra.getText())) {
+                        usuario = user;
+                        scoreMax = user.getScore();
+                        JOptionPane.showMessageDialog(this, "Se a logueado exitosamente");
+                        frmPrincipal frmPrincipal = new frmPrincipal();
+                        frmPrincipal.setVisible(true);
+                        this.setVisible(false);
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Usuario no registrado");
+                }
+            }catch (Exception ex){
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        }else{
+            if (!validador.validaApodo(txtUsuario.getText()) && !validador.validaContrasena(txtContra.getText())) {
+                JOptionPane.showMessageDialog(this, "El formato de ambos campos son invalidos");
+            }else if (!validador.validaContrasena(txtContra.getText())){
+                JOptionPane.showMessageDialog(this, "El formato de la contraseña es invalido");
+            }else{
+                JOptionPane.showMessageDialog(this, "El formato de ambos campos es invalido");
+            }
+        }
+    }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        frmUsuarios frmUsuario = new frmUsuarios();
+        frmUsuario.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
