@@ -62,9 +62,19 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String toString() {
-        return "Usuario(" + "apodo = " + apodo + ", nombre = " + nombre + ", contraseña = " + contra + ", email = " + email + ", score = " + score + ')';
+        return "Usuario(" + "apodo = " + apodo + ", nombre = " + nombre 
+                + ", contraseña = " + contra + ", email = " + email 
+                + ", score = " + score + ')';
     }
 
     @Override
@@ -90,13 +100,5 @@ public class Usuario {
             return false;
         }
         return true;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 }
