@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import usuarios.Usuario;
 
 /**
  *
@@ -25,8 +26,8 @@ public class Registro extends AccesoAleatorio {
         super(nomArchivo, 236);
     }
 
-    public Usuarios leeUsuario() throws IOException {
-        Usuarios usuario = new Usuarios();
+    public Usuario leeUsuario() throws IOException {
+        Usuario usuario = new Usuario();
         usuario.setApodo(leeString(20));
         usuario.setNombre(leeString(35));
         usuario.setEmail(leeString(41));
@@ -43,8 +44,8 @@ public class Registro extends AccesoAleatorio {
         archivo.writeInt(usuario.getScore());
     }
 
-    public Usuarios obten(Usuarios usuario) throws Exception {
-        Usuarios usuarioLeido;
+    public  obten(Usuario usuario) throws Exception {
+        Usuario usuarioLeido;
 
         try {
             archivo = new RandomAccessFile(nomArchivo, "r");
@@ -74,8 +75,8 @@ public class Registro extends AccesoAleatorio {
         }
     }
 
-    public void agrega(Usuarios usuario) throws Exception {
-        Usuarios usuarioAux = null;
+    public void agrega(Usuario usuario) throws Exception {
+        Usuario usuarioAux = null;
         try {
             usuarioAux = obten(usuario);
         } catch (Exception e) {
@@ -114,8 +115,8 @@ public class Registro extends AccesoAleatorio {
         }
     }
 
-    public void actualiza(Usuarios usuario) throws Exception {
-        Usuarios usuarioLeido;
+    public void actualiza(Usuario usuario) throws Exception {
+        Usuario usuarioLeido;
         try {
             archivo = new RandomAccessFile(nomArchivo, "rw");
 
@@ -139,8 +140,8 @@ public class Registro extends AccesoAleatorio {
         }
     }
 
-    public void elimina(Usuarios usuario) throws Exception {
-        Usuarios usuarioLeido;
+    public void elimina(Usuario usuario) throws Exception {
+        Usuario usuarioLeido;
         try {
             archivo = new RandomAccessFile(nomArchvio, "rw");
         } catch (FileNotFoundException fnfe) {
@@ -169,9 +170,9 @@ public class Registro extends AccesoAleatorio {
         }
     }
     
-    public ArrayList<Usuarios> lista() throws Exception {
-        ArrayList<Usuarios> lista = new ArrayList<>();
-        Usuarios usuario;
+    public ArrayList<Usuario> lista() throws Exception {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        Usuario usuario;
         try {
             archivo = new RandomAccessFile(nomArchivo, "r");
         
