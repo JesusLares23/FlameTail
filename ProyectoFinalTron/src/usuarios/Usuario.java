@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author Lenovo
  */
-public class Usuarios {
+public class Usuario {
 
     private String apodo;
     private String nombre;
@@ -19,11 +19,11 @@ public class Usuarios {
     private String email;
     private int score;
 
-    public Usuarios() {
+    public Usuario() {
         this.score = 0;
     }
 
-    public Usuarios(String apodo, String nombre, String contra, String email) {
+    public Usuario(String apodo, String nombre, String contra, String email) {
         this.apodo = apodo;
         this.nombre = nombre;
         this.contra = contra;
@@ -85,7 +85,7 @@ public class Usuarios {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Usuarios other = (Usuarios) obj;
+        final Usuario other = (Usuario) obj;
         if (!Objects.equals(this.apodo, other.apodo)) {
             return false;
         }
