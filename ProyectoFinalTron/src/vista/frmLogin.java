@@ -1,11 +1,14 @@
 
 package vista;
 
+import control.Registro;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import usuarios.Usuario;
+import validadores.Validadores;
 
 /**
  * 
@@ -15,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    public static Usuarios usuario = new Usuarios();
+    public static Usuario usuario = new Usuario();
     public static int scoreMax;
     private Validadores validador = new Validadores();
     private Registro registro = new Registro("Registros.dat");
@@ -164,9 +167,9 @@ public class frmLogin extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         if (validador.validaApodo(txtUsuario.getText()) && validador.validaContrasena(txtContra.getText())) {
             try {
-                Usuarios user = registro.obten(new Usuarios(txtUsuario.getText(), "", "", ""));
+                Usuario user = (Usuario) registro.obten(new Usuario(txtUsuario.getText(), "", "", ""));
                 if (user != null) {
-                    if (user.getContrasena().equals(txtContra.getText())) {
+                    if (user.getContra().equals(txtContra.getText())) {
                         usuario = user;
                         scoreMax = user.getScore();
                         JOptionPane.showMessageDialog(this, "Se a logueado exitosamente");
